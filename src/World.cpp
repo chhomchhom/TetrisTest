@@ -42,7 +42,7 @@ void World::draw() {
 			block[this->current]->translate(KeyDirection);
 			KeyDirection = GAME_KEY_NULL;
 		}
-		if (movecount < 99) {
+		if (movecount < 50) {
 			movecount++;
 		} else {
 			if (isHit()) {
