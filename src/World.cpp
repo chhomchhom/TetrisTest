@@ -33,16 +33,49 @@ World::World() {
 void World::draw() {
 
 	this->next.draw();
-	if (GameStatus == GAME_STATUS_RUNNING) {
+	//draw hold
+	//get nextHold
+	int nHold = this->hold.getHold();
+	printf("hold = %d\n", nHold);
+	//draw if hold exist
+	if (nHold != -1) {
+		hold.draw();
+	}
 
+	if (GameStatus == GAME_STATUS_RUNNING) {
+		if (KeyDirection != 0) {
+			printf(" key direction = %d \n", KeyDirection);
+		}
 		if (KeyDirection == GAME_KEY_UP) {
 			block[this->current]->rotation();
 			KeyDirection = GAME_KEY_NULL;
 		} else if (KeyDirection != GAME_KEY_DOWN) {
 			block[this->current]->translate(KeyDirection);
 			KeyDirection = GAME_KEY_NULL;
+		} else if (KeyDirection == GAME_KEY_SWITCH) {
+			//if nHold exist
+			if (nHold != -1) {
+				//switch current with hold
+				int temp = current;
+				block[this->current]->reset();			//reset current block
+				current = nHold;		//set current to be the hold
+				block[this->current]->draw();			//draw current
+				this->hold.setHold(temp);			//set next to be current
+				this->hold.draw();			//draw hold
+				KeyDirection = GAME_KEY_NULL;
+			}
+			else if (nHold == -1) {			//hold is empty
+
+				this->hold.setHold(current);	//put current into hold
+				this->hold.draw();	//draw hold
+				current = this->next.getNext();	//set next one to be the current one
+				block[this->current]->draw();	//draw current
+				this->next.draw();
+			}
+
 		}
-		if (movecount < 50) {
+
+		if (movecount < 550) {
 			movecount++;
 		} else {
 			if (isHit()) {

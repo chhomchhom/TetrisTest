@@ -39,6 +39,7 @@
 #define GAME_KEY_LEFT			2
 #define GAME_KEY_RIGHT			3
 #define GAME_KEY_DOWN			4
+#define GAME_KEY_SWITCH			5
 
 
 // Block Direction

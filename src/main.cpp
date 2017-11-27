@@ -178,10 +178,12 @@ void keyFunc(unsigned char key, int x, int y) {
 			GameStatus = GAME_STATUS_RUNNING;
 		}
 	} else if (GameStatus == GAME_STATUS_RUNNING) {
-		if (key == 27) {
+		if (key == 27) { //esc
 			GameStatus = GAME_STATUS_PAUSE;
 		}
-
+		else if (key == 'S' || key == 's') {
+			KeyDirection = GAME_KEY_SWITCH;
+		}
 	} else if (GameStatus == GAME_STATUS_PAUSE) {
 		if (key == 27) {
 			GameStatus = GAME_STATUS_RUNNING;
@@ -207,7 +209,6 @@ void specialFunc(int key, int x, int y) {
 	} else if (GameStatus == GAME_STATUS_RUNNING) {
 		if (key == GLUT_KEY_LEFT) {
 			KeyDirection = GAME_KEY_LEFT;
-
 		} else if (key == GLUT_KEY_RIGHT) {
 			KeyDirection = GAME_KEY_RIGHT;
 		} else if (key == GLUT_KEY_UP) {

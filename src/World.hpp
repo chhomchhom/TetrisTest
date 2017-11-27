@@ -9,6 +9,7 @@
 #include "Block.hpp"
 #include "Color.hpp"
 #include "Next.hpp"
+#include "Hold.hpp"
 #include <math.h>
 
 using namespace std;
@@ -37,6 +38,7 @@ private:
 	Grid grid[GAME_ZONE_ROWS][GAME_ZONE_COLS];
 	Block *block[7];
 	Next next;
+	Hold hold;
 	bool isHit();
 	void updateWorld(); // This function will update everything need to be update after The object hit the world
 	void drawGrid();

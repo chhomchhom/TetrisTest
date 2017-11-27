@@ -1,5 +1,12 @@
-#ifndef SRC_NEXT_HPP_
-#define SRC_NEXT_HPP_
+/*
+ * Hold.hpp
+ *
+ *  Created on: 2017 M11 27
+ *      Author: akhma
+ */
+
+#ifndef HOLD_HPP_
+#define HOLD_HPP_
 
 #include <GL/glut.h>
 #include <time.h>
@@ -10,14 +17,14 @@
 
 using namespace std;
 
-class Next {
+class Hold {
 public:
-	Next();
+	Hold();
 	void draw();
-	int getNext();
-	void setNext(int n);
+	int getHold();
+	void setHold(int n);
 private:
-	int next;
+	int nextHold;
 	Block *block[7];
 	void setPosition();
 
@@ -25,4 +32,5 @@ private:
 
 
 
-#endif
+
+#endif /* HOLD_HPP_ */

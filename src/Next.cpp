@@ -11,8 +11,6 @@ Next::Next() {
 	block[6] = new Block_L();
 	srand(time(NULL)); // Make random actually random
 	this->next = rand() % 7;
-	this->next = rand() % 7;
-
 }
 
 int Next::getNext() {
@@ -20,6 +18,10 @@ int Next::getNext() {
 	srand(time(NULL)); // Make random actually random
 	this->next = rand() % 7;
 	return n;
+}
+
+void Next::setNext(int n) {
+	this->next = n;
 }
 
 void Next::draw() {
