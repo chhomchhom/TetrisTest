@@ -87,6 +87,12 @@ void Block::translate(int direction) {
 		}
 	} else if (direction == GAME_KEY_DOWN) {
 		// Reserve for KEY_DOWN
+		for (i = 0; i < 4; i++) {
+			if (this->plist[i]->y + this->start.y - 1 == -1) {
+				valid = false;
+				break;
+			}
+		}
 	}
 
 	if (valid) {

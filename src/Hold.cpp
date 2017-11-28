@@ -20,8 +20,8 @@ Hold::Hold() {
 }
 
 int Hold::getHold() {
-	int n = nextHold;
-	return n;
+
+	return nextHold;
 }
 
 void Hold::setHold(int n) {
@@ -30,6 +30,6 @@ void Hold::setHold(int n) {
 
 void Hold::draw() {
 
-	this->block[nextHold]->draw(575, 600, 25);
+	this->block[nextHold]->draw(575, 500, 25);
 
 }

@@ -18,6 +18,7 @@ char GAMERESUMEHINTTEXT[] = "Press 'Esc' to resume";
 char GAMERESTARTTEXT[] = "Press \"R\" to restart";
 char GAMEHIGHSCORETEXT[] = "HighScore ";
 char GAMENEXTTEXT[] = "Next";
+char GAMEHOLDTEXT[] = "Hold";
 
 int winx = 100, winy = 100;
 int GameStatus = GAME_STATUS_NEW;
@@ -66,6 +67,11 @@ void setText(void) {
 	glRasterPos2i(560, 800);
 	for (i = 0; GAMENEXTTEXT[i] != '\0'; i++) {
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, GAMENEXTTEXT[i]);
+	}
+
+	glRasterPos2i(560, 600);
+	for (i = 0; GAMENEXTTEXT[i] != '\0'; i++) {
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, GAMEHOLDTEXT[i]);
 	}
 	if (GameStatus == GAME_STATUS_NEW) {
 		size = length(NEWGAMETEXT);

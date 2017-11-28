@@ -24,7 +24,7 @@ World::World() {
 	block[5] = new Block_J();
 	block[6] = new Block_L();
 
-	srand(time(NULL)); // Make random actually random
+	srand(time(NULL) * 100); // Make random actually random
 	this->current = rand() % 7;
 	movecount = 0;
 
@@ -36,43 +36,46 @@ void World::draw() {
 	//draw hold
 	//get nextHold
 	int nHold = this->hold.getHold();
-	printf("hold = %d\n", nHold);
+	//switch counter
+	bool check = true;
+
 	//draw if hold exist
 	if (nHold != -1) {
 		hold.draw();
 	}
 
 	if (GameStatus == GAME_STATUS_RUNNING) {
-		if (KeyDirection != 0) {
-			printf(" key direction = %d \n", KeyDirection);
-		}
+
 		if (KeyDirection == GAME_KEY_UP) {
 			block[this->current]->rotation();
 			KeyDirection = GAME_KEY_NULL;
-		} else if (KeyDirection != GAME_KEY_DOWN) {
-			block[this->current]->translate(KeyDirection);
-			KeyDirection = GAME_KEY_NULL;
-		} else if (KeyDirection == GAME_KEY_SWITCH) {
-			//if nHold exist
+		} else if (KeyDirection == GAME_KEY_SWITCH && check == true) {
+				//if nHold exist
 			if (nHold != -1) {
-				//switch current with hold
-				int temp = current;
-				block[this->current]->reset();			//reset current block
-				current = nHold;		//set current to be the hold
-				block[this->current]->draw();			//draw current
-				this->hold.setHold(temp);			//set next to be current
-				this->hold.draw();			//draw hold
+					//switch current with hold
+					int temp = current;
+					block[this->current]->reset();		//reset current block
+					current = nHold;		//set current to be the hold
+					block[this->current]->draw();			//draw current
+					this->hold.setHold(temp);			//set next to be current
+					this->hold.draw();
+					//check = false;
+					//draw hold
+
+			} else if (nHold == -1) {		//hold is empty
+					this->hold.setHold(current);	//put current into hold
+					this->hold.draw();	//draw hold
+					current = this->next.getNext();	//set next one to be the current one
+					block[this->current]->draw();	//draw current
+					this->next.draw();
+					//check = false;
+				}
+				KeyDirection = GAME_KEY_NULL;
+				check = false;
+		} else {
+				block[this->current]->translate(KeyDirection);
 				KeyDirection = GAME_KEY_NULL;
 			}
-			else if (nHold == -1) {			//hold is empty
-
-				this->hold.setHold(current);	//put current into hold
-				this->hold.draw();	//draw hold
-				current = this->next.getNext();	//set next one to be the current one
-				block[this->current]->draw();	//draw current
-				this->next.draw();
-			}
-
 		}
 
 		if (movecount < 550) {
@@ -92,9 +95,11 @@ void World::draw() {
 			}
 			movecount = 0;
 		}
+		//current = this->next.getNext();
 		block[current]->draw();
+		//check = true;
 		drawGrid();
-	}
+
 }
 
 void World::reset() {
@@ -111,6 +116,7 @@ void World::reset() {
 	for (i = 0; i < 7; i++) {
 		block[i]->reset();
 	}
+
 }
 
 bool World::isHit() {
