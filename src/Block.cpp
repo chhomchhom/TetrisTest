@@ -34,32 +34,33 @@ void Block::drawOutline(int x, int y, int size, Color color) {
 }
 
 void Block::draw() {
-	int i, x, y, x1, y1;
+	int i, x1, y1, x2, y2;
 
 	for (i = 0; i < 4; i++) {
 		if (this->start.y + this->plist[i]->y < GAME_ZONE_ROWS) {
 			glColor3f(color.red, color.green, color.blue);
-			x = (this->plist[i]->x + this->start.x) * GAME_BLOCK_SIZE
+			x1 = (this->plist[i]->x + this->start.x) * GAME_BLOCK_SIZE
 					+ GAME_ZONE_X;
-			y = (this->plist[i]->y + this->start.y) * GAME_BLOCK_SIZE
+			y1 = (this->plist[i]->y + this->start.y) * GAME_BLOCK_SIZE
 					+ GAME_ZONE_Y;
-			x1 = x + GAME_BLOCK_SIZE;
-			y1 = y + GAME_BLOCK_SIZE;
+			x2 = x1 + GAME_BLOCK_SIZE;
+			y2 = y1 + GAME_BLOCK_SIZE;
 
-			glRecti(x, y, x1, y1);
-			this->drawOutline(x, y, GAME_BLOCK_SIZE, this->outlineColor);
+			glRecti(x1, y1, x2, y2);
+			this->drawOutline(x1, y1, GAME_BLOCK_SIZE, this->outlineColor);
 		}
 	}
 
 }
 
 void Block::draw(int x, int y, int size) {
-	int x1, y1, x2, y2, i;
+	int i, x1, y1, x2, y2;
 	for (i = 0; i < 4; i++) {
 
 		glColor3f(color.red, color.green, color.blue);
-		x1 = x + this->plist[i]->x * size;
-		y1 = y + this->plist[i]->y * size;
+		x1 = (this->plist[i]->x * size) + x;
+		y1 = (this->plist[i]->y * size) + y;
+
 		x2 = x1 + size;
 		y2 = y1 + size;
 

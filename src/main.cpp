@@ -258,7 +258,6 @@ void Menu(void) {
  */
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
-
 	GameWorld.draw();
 	setText();
 	drawGameZoneBorder();

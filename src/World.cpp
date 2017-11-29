@@ -70,13 +70,13 @@ void World::draw() {
 					this->next.draw();
 					//check = false;
 				}
-				KeyDirection = GAME_KEY_NULL;
-				check = false;
+			KeyDirection = GAME_KEY_NULL;
+			check = false;
 		} else {
 				block[this->current]->translate(KeyDirection);
 				KeyDirection = GAME_KEY_NULL;
 			}
-		}
+
 
 		if (movecount < 550) {
 			movecount++;
@@ -99,7 +99,7 @@ void World::draw() {
 		block[current]->draw();
 		//check = true;
 		drawGrid();
-
+	}
 }
 
 void World::reset() {
