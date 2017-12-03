@@ -3,12 +3,13 @@
 #include <stdio.h>
 #include <time.h>
 #include <iostream>
-//#include <Windows.h>
+#include <Windows.h>
 //#include <thread>
 #include "Constant.hpp"
 #include "World.hpp"
 //#include "Block.hpp"
-
+#include <mmsystem.h>
+//using namespace std;
 
 
 char NEWGAMETEXT[] = "Press \"N\" to start";
@@ -277,10 +278,18 @@ void display(void) {
 	glutPostRedisplay();
 }
 void play_music() {
+	PlaySound((LPCSTR) "Tetris.wav", NULL,
+			SND_FILENAME | SND_ASYNC | SND_LOOP);
+//	int test = 0;
+//	cin >> test;
+
+	//code from jerry
+//	PlaySound((LPCSTR) "Background.wav", NULL,
+//		SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 }
 int main(int argc, char** argv) {
-
+	play_music();
 	setvbuf(stdout, NULL, _IONBF, 0);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -296,6 +305,9 @@ int main(int argc, char** argv) {
 	glutSpecialFunc(specialFunc);
 	glutDisplayFunc(display);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+
 	glutMainLoop();
+
 	return 0;
 }
