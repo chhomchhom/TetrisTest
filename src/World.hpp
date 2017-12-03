@@ -12,9 +12,11 @@
 #include "Hold.hpp"
 #include <math.h>
 
+
 using namespace std;
 extern int GameStatus, KeyDirection, Score, HighScore;
 extern float moved;
+
 
 class Grid {
 public:
@@ -32,21 +34,23 @@ public:
 	World();
 	void draw();
 	void reset();
+	int movecount; //trying to use this in Block.cpp as well
+	bool isHit(); //trying to use this in Block.cpp as well
+	int current; //same ^
+	void deleteGrid(); //same^
+	Block *block[7]; //same^
+	Next next; //same^
 private:
-	int current;
-	int movecount;
+
+
 	Grid grid[GAME_ZONE_ROWS][GAME_ZONE_COLS];
-	Block *block[7];
-	Next next;
+
 	Hold hold;
-	bool isHit();
+
 	void updateWorld(); // This function will update everything need to be update after The object hit the world
 	void drawGrid();
 	void drawOutline(int x, int y, int size);
-	void deleteGrid();
+
 };
-
-
-
 
 #endif

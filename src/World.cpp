@@ -49,18 +49,17 @@ void World::draw() {
 		if (KeyDirection == GAME_KEY_UP) {
 			block[this->current]->rotation();
 			KeyDirection = GAME_KEY_NULL;
-		} else if (KeyDirection == GAME_KEY_SWITCH && check == true) {
+		} else if ((KeyDirection == GAME_KEY_SWITCH) && (check == true)) {
 				//if nHold exist
 			if (nHold != -1) {
 					//switch current with hold
-					int temp = current;
+				int temp = current;	// the number that represent current block
 					block[this->current]->reset();		//reset current block
 					current = nHold;		//set current to be the hold
 					block[this->current]->draw();			//draw current
 					this->hold.setHold(temp);			//set next to be current
 					this->hold.draw();
-					//check = false;
-					//draw hold
+
 
 			} else if (nHold == -1) {		//hold is empty
 					this->hold.setHold(current);	//put current into hold
@@ -68,8 +67,8 @@ void World::draw() {
 					current = this->next.getNext();	//set next one to be the current one
 					block[this->current]->draw();	//draw current
 					this->next.draw();
-					//check = false;
 				}
+
 			KeyDirection = GAME_KEY_NULL;
 			check = false;
 		} else {
@@ -77,17 +76,17 @@ void World::draw() {
 				KeyDirection = GAME_KEY_NULL;
 			}
 
-
 		if (movecount < 550) {
 			movecount++;
+
 		} else {
 			if (isHit()) {
 				if (block[this->current]->start.y == GAME_ZONE_ROWS) {
 					GameStatus = GAME_STATUS_END;
 					this->reset();
 				} else {
-				deleteGrid();
-				block[this->current]->reset();
+					deleteGrid();	//check if row needs to be deleted or not
+					block[this->current]->reset();
 					current = this->next.getNext();
 				}
 			} else {
@@ -95,9 +94,8 @@ void World::draw() {
 			}
 			movecount = 0;
 		}
-		//current = this->next.getNext();
 		block[current]->draw();
-		//check = true;
+		check = true;
 		drawGrid();
 	}
 }
@@ -116,6 +114,8 @@ void World::reset() {
 	for (i = 0; i < 7; i++) {
 		block[i]->reset();
 	}
+	//reset hold
+	this->hold.setHold(-1);
 
 }
 
@@ -208,7 +208,7 @@ void World::deleteGrid() {
 				Score += 5;
 				int k;
 				for (k = i; k < GAME_ZONE_ROWS - 2; k++) {
-					line = true;
+				//line = true;
 					for (j = 0; j < GAME_ZONE_COLS; j++) {
 						if (grid[k + 1][j].isActive) {
 							grid[k][j].setActive(grid[k + 1][j].color);

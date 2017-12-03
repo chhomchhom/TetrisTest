@@ -3,9 +3,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <iostream>
-
+//#include <Windows.h>
+//#include <thread>
 #include "Constant.hpp"
 #include "World.hpp"
+//#include "Block.hpp"
 
 
 
@@ -42,11 +44,12 @@ void move() {
  * Function will set up all the text for the program
  */
 void setText(void) {
+
 	glColor3f(1.0, 1.0, 1.0);
 	char scorechar[6];
 	int i, size;
-	glRasterPos2i(560, 950);
-	for (i = 0; SCORETEXT[i] != '\0'; i++) {
+	glRasterPos2i(560, 950); //location of where score appears
+	for (i = 0; SCORETEXT[i] != '\0'; i++) { //prints out "Score" text
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, SCORETEXT[i]);
 	}
 	glRasterPos2i(560, 920);
@@ -183,19 +186,21 @@ void keyFunc(unsigned char key, int x, int y) {
 		if (key == 'n' || key == 'N') {
 			GameStatus = GAME_STATUS_RUNNING;
 		}
-	} else if (GameStatus == GAME_STATUS_RUNNING) {
+	} else if (GameStatus == GAME_STATUS_RUNNING) { //this one pauses
 		if (key == 27) { //esc
 			GameStatus = GAME_STATUS_PAUSE;
 		}
 		else if (key == 'S' || key == 's') {
 			KeyDirection = GAME_KEY_SWITCH;
+		} else if (key == 32) {
+			KeyDirection = GAME_KEY_SPACE;
 		}
-	} else if (GameStatus == GAME_STATUS_PAUSE) {
-		if (key == 27) {
+	} else if (GameStatus == GAME_STATUS_PAUSE) { //this one resumes
+		if (key == 27) { //escape key
 			GameStatus = GAME_STATUS_RUNNING;
 		}
 	} else if (GameStatus == GAME_STATUS_END) {
-		if (key == 'r' || key == 'R') {
+		if (key == 'r' || key == 'R') { //restart
 			GameStatus = GAME_STATUS_NEW;
 		}
 	}
@@ -242,6 +247,9 @@ void mainMenu(GLint option) {
 	case 2: {
 		exit(0);
 	}
+	case 3: {
+		printf("Jokes");
+	}
 	}
 }
 
@@ -249,14 +257,17 @@ void mainMenu(GLint option) {
  * Set up menu
  */
 void Menu(void) {
+
 	glutCreateMenu(mainMenu);
 	glutAddMenuEntry(" New Game", 1);
 	glutAddMenuEntry(" Exit Game", 2);
+	glutAddMenuEntry("Your beautiful", 3);
 }
 /**
  * Display function
  */
 void display(void) {
+
 	glClear(GL_COLOR_BUFFER_BIT);
 	GameWorld.draw();
 	setText();
@@ -265,8 +276,11 @@ void display(void) {
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
+void play_music() {
 
+}
 int main(int argc, char** argv) {
+
 	setvbuf(stdout, NULL, _IONBF, 0);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -277,13 +291,11 @@ int main(int argc, char** argv) {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glMatrixMode(GL_PROJECTION);
 	gluOrtho2D(0.0, WIN_WIDTH, 0.0, WIN_HEIGHT);
-
 	Menu();
 	glutKeyboardFunc(keyFunc);
 	glutSpecialFunc(specialFunc);
 	glutDisplayFunc(display);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 	glutMainLoop();
-
 	return 0;
 }

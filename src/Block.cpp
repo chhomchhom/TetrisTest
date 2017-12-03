@@ -1,5 +1,7 @@
-#include "Block.hpp"
-
+//#include "Block.hpp"
+#include "World.hpp"
+#include <GL/glut.h>
+#include <stdio.h>
 //================================================================
 // Position Class
 Position::Position() {
@@ -18,6 +20,8 @@ void Position::set(int x, int y) {
 
 //===============================================================
 // Block Class
+
+//draws the outlien of the shape
 void Block::drawOutline(int x, int y, int size, Color color) {
 	glColor3f(color.red, color.green, color.blue);
 	glLineWidth(4.0);
@@ -33,6 +37,7 @@ void Block::drawOutline(int x, int y, int size, Color color) {
 	glEnd();
 }
 
+//draws the actual block within the outline
 void Block::draw() {
 	int i, x1, y1, x2, y2;
 
@@ -53,6 +58,7 @@ void Block::draw() {
 
 }
 
+//draws at certain location
 void Block::draw(int x, int y, int size) {
 	int i, x1, y1, x2, y2;
 	for (i = 0; i < 4; i++) {
@@ -87,13 +93,26 @@ void Block::translate(int direction) {
 			}
 		}
 	} else if (direction == GAME_KEY_DOWN) {
+		World myWorld;
 		// Reserve for KEY_DOWN
-		for (i = 0; i < 4; i++) {
-			if (this->plist[i]->y + this->start.y - 1 == -1) {
-				valid = false;
-				break;
+		//myWorld.movecount = 550;
+		myWorld.deleteGrid();		//check if row needs to be deleted or not
+		myWorld.block[myWorld.current]->reset();
+		myWorld.current = myWorld.next.getNext();
+
+		if (!myWorld.isHit()) {
+			for (i = 0; i < 4; i++) {
+				if (this->plist[i]->y + this->start.y - 1 == -1) {
+					valid = false;
+					break;
+				}
+
 			}
+
 		}
+
+	} else if (direction == GAME_KEY_SPACE) {
+		printf("Spaced Pressed!");
 	}
 
 	if (valid) {
@@ -188,9 +207,9 @@ Block_I::Block_I() {
 
 void Block_I::reset() {
 	this->plist[0]->set(0, 0);
-	this->plist[1]->set(0, 1);
-	this->plist[2]->set(0, 2);
-	this->plist[3]->set(0, 3);
+	this->plist[1]->set(1, 0);
+	this->plist[2]->set(2, 0);
+	this->plist[3]->set(3, 0);
 	this->direction = GAME_BLOCK_RIGHT;
 	this->start.set(GAME_ZONE_COLS / 2 - 2, GAME_ZONE_ROWS);
 }
