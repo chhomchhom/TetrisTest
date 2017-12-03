@@ -280,14 +280,8 @@ void display(void) {
 void play_music() {
 	PlaySound((LPCSTR) "Tetris.wav", NULL,
 			SND_FILENAME | SND_ASYNC | SND_LOOP);
-//	int test = 0;
-//	cin >> test;
-
-	//code from jerry
-//	PlaySound((LPCSTR) "Background.wav", NULL,
-//		SND_FILENAME | SND_ASYNC | SND_LOOP);
-
 }
+
 int main(int argc, char** argv) {
 	play_music();
 	setvbuf(stdout, NULL, _IONBF, 0);

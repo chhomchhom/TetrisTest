@@ -96,20 +96,21 @@ void Block::translate(int direction) {
 		World myWorld;
 		// Reserve for KEY_DOWN
 		//myWorld.movecount = 550;
-		myWorld.deleteGrid();		//check if row needs to be deleted or not
-		myWorld.block[myWorld.current]->reset();
-		myWorld.current = myWorld.next.getNext();
+		//trying to add colision detection
 
-		if (!myWorld.isHit()) {
-			for (i = 0; i < 4; i++) {
-				if (this->plist[i]->y + this->start.y - 1 == -1) {
-					valid = false;
-					break;
-				}
 
+		for (i = 0; i < 4; i++) {
+
+			if (this->plist[i]->y + this->start.y - 1 == -1) {
+				valid = false;
+				break;
 			}
 
+			myWorld.block[myWorld.current]->reset();
+			myWorld.current = myWorld.next.getNext();
+
 		}
+
 
 	} else if (direction == GAME_KEY_SPACE) {
 		printf("Spaced Pressed!");

@@ -41,12 +41,8 @@ public:
 	Block *block[7]; //same^
 	Next next; //same^
 private:
-
-
 	Grid grid[GAME_ZONE_ROWS][GAME_ZONE_COLS];
-
 	Hold hold;
-
 	void updateWorld(); // This function will update everything need to be update after The object hit the world
 	void drawGrid();
 	void drawOutline(int x, int y, int size);
