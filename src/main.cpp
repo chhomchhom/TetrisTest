@@ -11,6 +11,11 @@
 #include <mmsystem.h>
 //using namespace std;
 
+/**
+ * By Virack and Akhmad
+ */
+
+
 
 char NEWGAMETEXT[] = "Press \"N\" to start";
 char SCORETEXT[] = "Score ";
